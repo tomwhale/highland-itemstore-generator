@@ -46,7 +46,7 @@ const itemStoreGenerator = ( { storeUrl, debugTrue = false } ) => {
               push ( null, item );
             } );
 
-            if ( items.length && items.length === queryOptions.qs.count ) {
+            if ( items.length && items.length === ( ( queryOptions.qs && queryOptions.qs.count ) || 100 ) ) {
               return setTimeout ( () => {
                 next ( generator (
                   R.last ( items ).lastModifiedTime,
