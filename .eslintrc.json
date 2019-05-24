@@ -1,0 +1,38 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "no-console": 0,
+        "object-shorthand": ["error", "always"],
+        "prefer-const": 2,
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "always"],
+        "computed-property-spacing": ["error", "always"],
+        "space-before-function-paren": ["error", "always"],
+        "func-call-spacing": ["error", "always"],
+        "keyword-spacing": ["error", { "before": true }],
+        "space-in-parens": ["error", "always"],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

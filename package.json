@@ -1,0 +1,28 @@
+{
+  "name": "highland-itemstore-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomwhale/highland-itemstore-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomwhale/highland-itemstore-generator/issues"
+  },
+  "homepage": "https://github.com/tomwhale/highland-itemstore-generator#readme",
+  "dependencies": {
+    "highland": "^2.13.4",
+    "highland-parse-response": "0.0.1",
+    "ramda": "^0.26.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
