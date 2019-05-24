@@ -4,9 +4,9 @@ const R = require ( 'ramda' );
 const request = require ( 'request' );
 const parseResponse = require ( 'highland-parse-response' );
 
-const itemStoreGenerator = ( { storeUrl, debugTrue = false } ) => {
+const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
   const queryUrl = options => {
-    if ( debugTrue ) {
+    if ( debug ) {
       console.log ( [ options.method, [ options.url || options.uri, R.map ( R.join ( '=' ), R.toPairs ( options.qs || {} ) ).join ( '&' ) ].join ( '?' ) ].join ( '' ) );
     }
     return H.wrapCallback ( request ) ( options )

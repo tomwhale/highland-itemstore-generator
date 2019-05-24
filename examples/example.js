@@ -1,11 +1,11 @@
-const streamItemStore = require('../index')({
+const streamItemStore = require ( '../index' ) ( {
   storeUrl: 'https://itemstore-stag.inyourarea.co.uk',
-  debugTrue: true
-})
+  debug: true
+} );
 
-streamItemStore({
+streamItemStore ( {
   path: '/items/ids/articles'
-})
-.take(5)
-.collect()
-.toCallback(console.log)
+} )
+  .take ( 5 )
+  .collect ()
+  .toCallback ( console.log );
