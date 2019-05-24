@@ -5,7 +5,7 @@
 ## Example ##
 
 ```
-const streamItemStore = require ( '../index' ) ( {
+const streamItemStore = require ( 'highland-itemstore-generator' ) ( {
   storeUrl: 'https://itemstore-stag.inyourarea.co.uk',
   debugTrue: true
 } );
