@@ -40,7 +40,7 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
           .each ( items => {
             const allItemsUpdatedAtTheSameTime = items.length > 1 && R.length ( R.uniq ( R.map ( R.prop ( 'lastModifiedTime' ), items ) ) ) === 1;
 
-            const uniqItems = R.uniqWith ( item => R.contains ( item.id, prevIds ) ) ( items );
+            const uniqItems = R.reject ( item => R.includes ( item.id, prevIds ) ) ( items );
 
             uniqItems.forEach ( item => {
               push ( null, item );
