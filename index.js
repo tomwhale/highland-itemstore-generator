@@ -34,7 +34,8 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
 
       return H ( ( push, next ) => {
         return queryStore ( before ? R.assocPath ( [ 'qs', 'before' ], before, queryOptions ) : queryOptions )
-          .errors ( ( ) => {
+          .errors ( ( err, push ) => {
+            console.log ( err );
             push ( null, 'ERROR' );
           } )
           .each ( items => {
