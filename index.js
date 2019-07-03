@@ -34,10 +34,32 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
 
       return H ( ( push, next ) => {
         return queryStore ( before ? R.assocPath ( [ 'qs', 'before' ], before, queryOptions ) : queryOptions )
-          .errors ( ( error ) => {
-            return push ( error );
+          .errors ( ( ) => {
+            push ( null, 'ERROR' );
           } )
           .each ( items => {
+            if ( items === 'ERROR' ) {
+              return setTimeout ( () => {
+                next (
+                  generator (
+                    R.last ( items ).lastModifiedTime,
+                    R.concat ( prevIds, R.map ( R.prop ( 'id' ), items ) ),
+                    allItemsUpdatedAtTheSameTime
+                      ? R.assocPath (
+                        [ 'qs', 'count' ],
+                        Math.min (
+                          ( queryOptions.qs.count || 100 ) * 2,
+                          1000
+                        ),
+                        queryOptions
+                      )
+                      : undefined
+                  )
+                );
+              }, 0 );
+            }
+
+
             const allItemsUpdatedAtTheSameTime = items.length > 1 && R.length ( R.uniq ( R.map ( R.prop ( 'lastModifiedTime' ), items ) ) ) === 1;
 
             const uniqItems = R.reject ( item => R.includes ( item.id, prevIds ) ) ( items );
@@ -46,7 +68,7 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
               push ( null, item );
             } );
 
-            if ( items.length && items.length === ( ( queryOptions.qs && queryOptions.qs.count ) || 100 ) ) {
+            if ( items.length && uniqItems.length ) {
               return setTimeout ( () => {
                 next ( generator (
                   R.last ( items ).lastModifiedTime,
