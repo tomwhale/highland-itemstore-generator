@@ -45,16 +45,7 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
                   generator (
                     R.last ( items ).lastModifiedTime,
                     R.concat ( prevIds, R.map ( R.prop ( 'id' ), items ) ),
-                    allItemsUpdatedAtTheSameTime
-                      ? R.assocPath (
-                        [ 'qs', 'count' ],
-                        Math.min (
-                          ( queryOptions.qs.count || 100 ) * 2,
-                          1000
-                        ),
-                        queryOptions
-                      )
-                      : undefined
+                    queryOptions
                   )
                 );
               }, 0 );
