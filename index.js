@@ -40,6 +40,11 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
           } )
           .each ( items => {
             if ( items === 'ERROR' ) {
+              if ( debug ) {
+                console.log ( 'Retrying...' );
+                console.log ( 'Using lastModifiedTime:', R.last ( items ).lastModifiedTime );
+              }
+              
               return setTimeout ( () => {
                 next (
                   generator (
