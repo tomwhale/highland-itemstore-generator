@@ -28,7 +28,7 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
   };
 
   const streamStore = options => {
-    const generator = ( before, pIds, opts ) => {
+    const generator = ( before, pIds, opts, retry = 0 ) => {
       const prevIds = pIds || [];
       const queryOptions = opts || options;
 
@@ -40,17 +40,22 @@ const itemStoreGenerator = ( { storeUrl, debug = false } ) => {
           } )
           .each ( items => {
             if ( items === 'ERROR' ) {
-              if ( debug ) {
-                console.log ( 'Retrying...' );
-                console.log ( 'Using lastModifiedTime:', R.last ( items ).lastModifiedTime );
+              if ( retry > 3 ) {
+                return push ( null, H.nil );
               }
-              
+
+              if ( debug ) {
+                console.log ( `Retrying...${retry}` );
+                console.log ( 'Using lastModifiedTime:', before );
+              }
+
               return setTimeout ( () => {
                 next (
                   generator (
-                    R.last ( items ).lastModifiedTime,
-                    R.concat ( prevIds, R.map ( R.prop ( 'id' ), items ) ),
-                    queryOptions
+                    before,
+                    prevIds,
+                    queryOptions,
+                    ++retry
                   )
                 );
               }, 0 );
